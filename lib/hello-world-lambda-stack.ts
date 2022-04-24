@@ -1,16 +1,40 @@
-import { Stack, StackProps } from 'aws-cdk-lib';
+import { Duration, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-// import * as sqs from 'aws-cdk-lib/aws-sqs';
+import {
+    Code,
+    Function,
+    FunctionUrlAuthType,
+    HttpMethod,
+    Runtime,
+} from 'aws-cdk-lib/aws-lambda';
+import { RetentionDays } from 'aws-cdk-lib/aws-logs';
 
 export class HelloWorldLambdaStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);
+    constructor(scope: Construct, id: string, props?: StackProps) {
+        super(scope, id, props);
 
-    // The code that defines your stack goes here
+        const lambdaFn = new Function(this, 'hello-world-lambda-function', {
+            code: Code.fromAsset(__dirname + '/../dist'),
+            handler: 'index.main',
+            runtime: Runtime.NODEJS_14_X,
 
-    // example resource
-    // const queue = new sqs.Queue(this, 'HelloWorldLambdaQueue', {
-    //   visibilityTimeout: cdk.Duration.seconds(300)
-    // });
-  }
+            description: 'hello world lambda function',
+            timeout: Duration.seconds(1),
+            functionName: 'hello-world-lambda-function',
+            memorySize: 128,
+            logRetention: RetentionDays.THREE_DAYS,
+            currentVersionOptions: {
+                removalPolicy: RemovalPolicy.DESTROY,
+            },
+        });
+
+        lambdaFn.addFunctionUrl({
+            authType: FunctionUrlAuthType.NONE,
+            cors: {
+                allowedMethods: [HttpMethod.GET],
+                allowedOrigins: ['*'],
+                maxAge: Duration.minutes(1),
+            },
+        });
+    }
 }
