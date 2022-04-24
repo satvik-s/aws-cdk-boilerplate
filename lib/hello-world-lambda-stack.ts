@@ -1,5 +1,4 @@
 import { Duration, RemovalPolicy, Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
 import {
     Code,
     Function,
@@ -8,6 +7,7 @@ import {
     Runtime,
 } from 'aws-cdk-lib/aws-lambda';
 import { RetentionDays } from 'aws-cdk-lib/aws-logs';
+import { Construct } from 'constructs';
 
 export class HelloWorldLambdaStack extends Stack {
     constructor(scope: Construct, id: string, props?: StackProps) {

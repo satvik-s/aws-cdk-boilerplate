@@ -1,5 +1,7 @@
 import 'source-map-support/register';
+
 import * as cdk from 'aws-cdk-lib';
+
 import { HelloWorldLambdaStack } from '../lib/hello-world-lambda-stack';
 
 const app = new cdk.App();
