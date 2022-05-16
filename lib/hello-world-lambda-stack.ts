@@ -15,7 +15,7 @@ export class HelloWorldLambdaStack extends Stack {
 
         const lambdaFn = new Function(this, 'hello-world-lambda-function', {
             code: Code.fromAsset(__dirname + '/../dist'),
-            handler: 'index.main',
+            handler: 'handler.main',
             runtime: Runtime.NODEJS_14_X,
 
             description: 'hello world lambda function',
