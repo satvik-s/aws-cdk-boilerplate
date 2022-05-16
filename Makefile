@@ -1,5 +1,5 @@
 deploy:
-	rm -rf dist
+	rm -rf dist*
 	rm -rf cdk.out
 	nvm use
 	npm run build
