@@ -5,11 +5,7 @@ module.exports = {
     semi: true,
     singleQuote: true,
     overrides: [
-        {
-            files: ['*.json'],
-            options: {
-                tabWidth: 2,
-            },
-        },
+        { files: '*.ts', options: { parser: 'typescript' } },
+        { files: '*.json', options: { tabWidth: 2 } },
     ],
 };
